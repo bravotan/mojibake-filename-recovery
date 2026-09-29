@@ -1,0 +1,21 @@
+[project]
+name = "mojibake-filename-recovery"
+version = "0.1.0"
+description = "Windows -> Mac 転送で Shift-JIS が誤解釈されたファイル名を復旧する CLI ツール"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+mojibake-filename-recovery = "mojibake_filename_recovery.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mojibake_filename_recovery"]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
