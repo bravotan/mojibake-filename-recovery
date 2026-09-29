@@ -9,19 +9,24 @@ Windows で作成した ZIP アーカイブなどを Mac 側で展開すると�
 ## 機能
 
 - Shift-JIS 誤解釈の検出・復旧
-- ディレクトリの再帰処理
+- `-r` / `--recursive` によるディレクトリの再帰処理
 - `argparse` ベースの CLI
-- `--dry-run` / `--verbose` オプション
+- `--dry-run` / `--verbose` / `--include-ascii` オプション
 
 ## 動作環境
 
-- Python 3.x
+- Python 3.9+
+- [uv](https://docs.astral.sh/uv/)
 
 ## 使い方
 
 ```bash
-python -m mojibake_filename_recovery <path> [--dry-run] [--verbose]
+uv sync
+uv run mojibake-filename-recovery <path> [-r] [--dry-run] [--verbose] [--include-ascii]
 ```
+
+`<path>` がディレクトリの場合、`-r`/`--recursive` を付けないとディレクトリ自体の名前のみ復旧し、
+中身のファイル・サブディレクトリは処理しません。中身も含めて復旧するには `-r` を付けてください。
 
 （インターフェースは開発が進むにつれて変更される可能性があります）
 

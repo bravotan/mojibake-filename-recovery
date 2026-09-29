@@ -21,7 +21,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "paths",
         nargs="+",
-        help="復旧対象のファイルまたはディレクトリのパス(ディレクトリは再帰処理される)",
+        help="復旧対象のファイルまたはディレクトリのパス",
+    )
+    parser.add_argument(
+        "-r",
+        "--recursive",
+        action="store_true",
+        help="ディレクトリの中身も再帰的に処理する(指定しない場合、ディレクトリ自体の名前のみ復旧する)",
     )
     parser.add_argument(
         "--dry-run",
@@ -65,8 +71,10 @@ def _maybe_rename(path: Path, *, include_ascii: bool, dry_run: bool, verbose: bo
     return True
 
 
-def process_path(path: Path, *, dry_run: bool, verbose: bool, include_ascii: bool) -> None:
-    if path.is_dir():
+def process_path(
+    path: Path, *, recursive: bool, dry_run: bool, verbose: bool, include_ascii: bool
+) -> None:
+    if path.is_dir() and recursive:
         for dirpath, dirnames, filenames in os.walk(path, topdown=False):
             base = Path(dirpath)
             for name in filenames:
@@ -93,6 +101,7 @@ def main(argv: list[str] | None = None) -> int:
             continue
         process_path(
             path,
+            recursive=args.recursive,
             dry_run=args.dry_run,
             verbose=args.verbose,
             include_ascii=args.include_ascii,
