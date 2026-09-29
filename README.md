@@ -18,7 +18,35 @@ Windows で作成した ZIP アーカイブなどを Mac 側で展開すると�
 - Python 3.9+
 - [uv](https://docs.astral.sh/uv/)
 
+## インストール
+
+`uv tool install` でコマンドとしてグローバルにインストールできます(PyPI 未登録のため、現時点では GitHub リポジトリまたはローカルパスを指定します)。
+
+```bash
+# GitHub リポジトリから直接インストール
+uv tool install git+https://github.com/bravotan/mojibake-filename-recovery
+
+# ローカルにクローン済みの場合
+uv tool install .
+```
+
+アンインストールする場合:
+
+```bash
+uv tool uninstall mojibake-filename-recovery
+```
+
+PyPI 公開後(ロードマップの Phase 3)は `uv tool install mojibake-filename-recovery` でインストールできるようになる予定です。
+
 ## 使い方
+
+`uv tool install` 済みの場合:
+
+```bash
+mojibake-filename-recovery <path> [-r] [--dry-run] [--verbose] [--include-ascii]
+```
+
+開発中のソースをそのまま実行する場合:
 
 ```bash
 uv sync
